@@ -20,3 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/actors', 'PublicController@index')->name('actors.index');
+
+Route::get('/actors/{actor}', 'PublicController@index')->name('actors.show');
+
+Route::prefix('admin')
+    ->namespace('Admin')
+    ->middleware('auth')
+    ->group(function () {
+        Route::resource('actors', ActorController::class);
+    });
